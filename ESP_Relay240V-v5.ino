@@ -14,11 +14,11 @@
 
 
 // WiFi parameters
-const char* ssid = "Xiaomi_AS";
-const char* password = "AS172014";
+const char* ssid = "xxx";
+const char* password = "xx";
 const char* mqtt_server = "192.168.31.232";  //Enter the MQTT server details
 const char* mqtt_username = "pi";
-const char* mqtt_password = "muemc761";
+const char* mqtt_password = "xxx";
 // The client id identifies the ESP8266 device. Think of it a bit like a hostname (Or just a name, like Greg).
 const char* clientID = "ESP01";
 const char* topic="RelayV4";
