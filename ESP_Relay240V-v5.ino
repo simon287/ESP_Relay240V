@@ -14,14 +14,14 @@
 
 
 // WiFi parameters
-const char* ssid = "xxx";
-const char* password = "xx";
-const char* mqtt_server = "192.168.31.232";  //Enter the MQTT server details
-const char* mqtt_username = "pi";
-const char* mqtt_password = "xxx";
+const char* ssid = "Livebox-D0BA";
+const char* password = "xxxxxxxx";
+const char* mqtt_server = "192.168.1.111";  //Enter the MQTT server details
+const char* mqtt_username = "mqtt-simon";
+const char* mqtt_password = "xxxxxxxxxx";
 // The client id identifies the ESP8266 device. Think of it a bit like a hostname (Or just a name, like Greg).
-const char* clientID = "ESP01";
-const char* topic="RelayV4";
+const char* clientID = "VMC";
+const char* topic="cmnd/VMC_01/speed";
 #define RELAY_PIN 0//
 
 
@@ -38,12 +38,14 @@ void setup(void)
   blink_led(5);
   client.setServer(mqtt_server, 1883);       //Port number through which the MQTT server is sending & receiving data
   client.setCallback(callback);
+
   delay(300);
 }
 
 void Wificonnect()
 {
   delay(10);
+  WiFi.softAPdisconnect (true);
   WiFi.begin(ssid, password);                 //Connect to WiFi Network
   while (WiFi.status() != WL_CONNECTED) {     //Trying to connect to the Network
     delay(500);
@@ -55,7 +57,7 @@ void MQTTreconnect()
 {
 while (!client.connected())
   {
-    if (client.connect("espClient",mqtt_username,mqtt_password))
+    if (client.connect(clientID ,mqtt_username,mqtt_password))
     {
       client.subscribe(topic);            //Subscribes to topic
     }
@@ -96,7 +98,7 @@ void callback(char* topic, byte* payload, unsigned int length)
 
 void blink_led(int nb){
  int n;
-for(n=0;n<nb;n++){
+ for(n=0;n<nb;n++){
   digitalWrite(LED_BUILTIN, LOW);    // Turn the LED on (Note that LOW is the voltage level
                                     // but actually the LED is on; this is because
                                     // it is acive low on the ESP-01)
